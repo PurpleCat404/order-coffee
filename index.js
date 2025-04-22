@@ -92,7 +92,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	function openModal() {
 		const count = document.querySelectorAll('fieldset.beverage').length;
 		const word = getDrinkWord(count);
-		// Вставляем таблицу, поле времени и кнопку Оформить
 		modalContent.innerHTML = `
         <p>Вы заказали ${count} ${word}</p>
         ${createOrderTable()}
@@ -103,12 +102,10 @@ document.addEventListener('DOMContentLoaded', function() {
         <button type=\"button\" id=\"confirm-button\">Оформить</button>
       `;
 
-		// Обработчик кнопки Оформить
 		const confirmButton = document.getElementById('confirm-button');
 		const timeInput = document.getElementById('order-time');
 		confirmButton.addEventListener('click', function() {
 			const selected = timeInput.value;
-			// Проверяем, что время выбрано
 			if (!selected) {
 				timeInput.style.border = '1px solid red';
 				alert('Пожалуйста, выберите время.');
