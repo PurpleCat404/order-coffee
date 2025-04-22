@@ -1,9 +1,93 @@
 document.addEventListener('DOMContentLoaded', function() {
 	const modal = document.getElementById('modal');
+	const modalContent = document.querySelector('.modal-content');
 	const form = document.getElementById('coffee-form');
 	const addButton = document.querySelector('.add-button');
   
+	function getDrinkWord(count) {
+	  const lastDigit = count % 10;
+	  const lastTwoDigits = count % 100;
+	  
+	  if (lastDigit === 1 && lastTwoDigits !== 11) return 'напиток';
+	  if (lastDigit >= 2 && lastDigit <= 4 && !(lastTwoDigits >= 12 && lastTwoDigits <= 14)) return 'напитка';
+	  return 'напитков';
+	}
+  
+	function getDrinkName(value) {
+	  const names = {
+		espresso: 'Эспрессо',
+		capuccino: 'Капучино',
+		cacao: 'Какао'
+	  };
+	  return names[value] || value;
+	}
+  
+	function getMilkName(value) {
+	  const milks = {
+		'usual': 'обычное',
+		'no-fat': 'обезжиренное',
+		'soy': 'соевое',
+		'coconut': 'кокосовое'
+	  };
+	  return milks[value] || value;
+	}
+  
+	function getOptionsText(fieldset) {
+	  const options = [];
+	  fieldset.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+		const optionTexts = {
+		  'whipped cream': 'взбитые сливки',
+		  'marshmallow': 'зефирки',
+		  'chocolate': 'шоколад',
+		  'cinnamon': 'корица'
+		};
+		options.push(optionTexts[checkbox.value] || checkbox.value);
+	  });
+	  return options.join(', ');
+	}
+  
+	function createOrderTable() {
+	  const fieldsets = document.querySelectorAll('fieldset.beverage');
+	  let tableHTML = `
+		<table class="order-table">
+		  <thead>
+			<tr>
+			  <th>Напиток</th>
+			  <th>Молоко</th>
+			  <th>Дополнительно</th>
+			</tr>
+		  </thead>
+		  <tbody>
+	  `;
+  
+	  fieldsets.forEach(fieldset => {
+		const drink = getDrinkName(fieldset.querySelector('select').value);
+		const milk = getMilkName(fieldset.querySelector('input[type="radio"]:checked').value);
+		const options = getOptionsText(fieldset);
+  
+		tableHTML += `
+		  <tr>
+			<td>${drink}</td>
+			<td>${milk}</td>
+			<td>${options}</td>
+		  </tr>
+		`;
+	  });
+  
+	  tableHTML += `
+		  </tbody>
+		</table>
+	  `;
+	  return tableHTML;
+	}
+  
 	function openModal() {
+	  const count = document.querySelectorAll('fieldset.beverage').length;
+	  const word = getDrinkWord(count);
+	  modalContent.innerHTML = `
+		<p>Вы заказали ${count} ${word}</p>
+		${createOrderTable()}
+	  `;
 	  modal.classList.add('active');
 	}
   
@@ -19,15 +103,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.querySelector('.close-modal').addEventListener('click', closeModal);
   
 	modal.addEventListener('click', function(e) {
-	  if (e.target === modal) {
-		closeModal();
-	  }
+	  if (e.target === modal) closeModal();
 	});
   
 	document.addEventListener('keydown', function(e) {
-	  if (e.key === 'Escape' && modal.classList.contains('active')) {
-		closeModal();
-	  }
+	  if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
 	});
   
 	function addDeleteButton(fieldset) {
