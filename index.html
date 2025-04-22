@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <form>
+    <form id="coffee-form">
       <fieldset class="beverage">
         <h4 class="beverage-count">Напиток №1</h4>
         <label class="field">
@@ -63,6 +63,15 @@
         <button type="submit" class="submit-button">Готово</button>
       </div>
     </form>
+
+    <div class="modal-overlay" id="modal">
+		<div class="modal">
+		  <button class="close-modal" aria-label="Закрыть окно">
+			<span class="close-icon">&times;</span>
+		  </button>
+		  <div class="modal-content">Заказ принят!</div>
+		</div>
+	</div>
 
     <script src="index.js"></script>
   </body>

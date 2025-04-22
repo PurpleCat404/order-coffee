@@ -2,6 +2,7 @@
     border: 1px solid #eee;
     margin: 15px 0;
     padding: 15px;
+    position: relative;
 }
 
 .beverage-count {
@@ -43,5 +44,95 @@
     padding: 7px 15px;
     border: 2px solid orange;
     border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
+.submit-button:hover {
+    background-color: #fff7e6;
+}
+
+.delete-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #ff0000;
+    font-weight: bold;
+    padding: 0 5px;
+}
+
+/* Стили модального окна */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    background-color: white;
+    width: 500px;
+    padding: 30px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Стили кнопки закрытия */
+.close-modal {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	width: 30px;
+	height: 30px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.2s ease;
+  }
+  
+  .close-icon {
+	font-size: 24px;
+	line-height: 1;
+	color: #888;
+	transition: color 0.2s;
+  }
+  
+  .close-modal:hover .close-icon {
+	color: #333;
+  }
+  
+  .close-modal:focus {
+	outline: 2px solid orange;
+	outline-offset: 2px;
+  }	
+
+.modal-content {
+    font-size: 18px;
+    line-height: 1.5;
+    text-align: center;
+    padding: 20px 0;
+}
